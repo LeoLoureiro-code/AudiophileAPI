@@ -1,0 +1,6 @@
+@AudiophileAPI_HostAddress = http://localhost:5174
+
+GET {{AudiophileAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

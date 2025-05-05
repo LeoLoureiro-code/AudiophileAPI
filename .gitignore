@@ -3,3 +3,11 @@
 ################################################################################
 
 /AudiophileAPI/appsettings.json
+/AudiophileAPI.DataAccess.EF/bin/Debug/net8.0
+/AudiophileAPI.DataAccess.EF/obj
+/.vs/AudiophileAPI/DesignTimeBuild
+/.vs/AudiophileAPI/FileContentIndex
+/AudiophileAPI/bin/Debug/net8.0
+/AudiophileAPI/obj/Debug/net8.0
+/AudiophileAPI/obj
+/.vs
