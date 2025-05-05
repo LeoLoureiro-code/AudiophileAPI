@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudiophileAPI", "AudiophileAPI\AudiophileAPI.csproj", "{8446AA39-4176-44AF-895B-7D6D6F823017}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudiophileAPI.DataAccess.EF", "AudiophileAPI.DataAccess.EF\AudiophileAPI.DataAccess.EF.csproj", "{4DC2D0AA-E3F4-458F-A2A6-744EFF9ABFB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8446AA39-4176-44AF-895B-7D6D6F823017}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8446AA39-4176-44AF-895B-7D6D6F823017}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8446AA39-4176-44AF-895B-7D6D6F823017}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8446AA39-4176-44AF-895B-7D6D6F823017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DC2D0AA-E3F4-458F-A2A6-744EFF9ABFB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DC2D0AA-E3F4-458F-A2A6-744EFF9ABFB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DC2D0AA-E3F4-458F-A2A6-744EFF9ABFB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DC2D0AA-E3F4-458F-A2A6-744EFF9ABFB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {49A8D541-66B7-4394-8B1D-D377F959C84E}
+	EndGlobalSection
+EndGlobal
