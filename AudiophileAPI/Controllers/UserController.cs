@@ -1,6 +1,7 @@
 ﻿using AudiophileAPI.DataAccess.EF.Models;
 using AudiophileAPI.DataAccess.EF.Repositories;
 using AudiophileAPI.DataAccess.EF.Services;
+using AudiophileAPI.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +11,10 @@ namespace AudiophileAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        
+        
+        //Create a DTO for users
+
 
         private readonly UsersRepository _usersRepository;
         private readonly PasswordService _passwordService;
@@ -69,12 +74,11 @@ namespace AudiophileAPI.Controllers
 
         //POST: api/Users
         [HttpPost("create-user")]
-        public async Task<ActionResult> CreateUser([FromBody] User user)
+        public async Task<ActionResult> CreateUser([FromBody] UsersDTO user)
         {
             try
             {
-                // Basic validation (you could add more or use FluentValidation)
-                if (string.IsNullOrWhiteSpace(user.Email) || string.IsNullOrWhiteSpace(user.PasswordHash))
+                if (string.IsNullOrWhiteSpace(user.Email) || string.IsNullOrWhiteSpace(user.Password))
                 {
                     return BadRequest(new
                     {
@@ -82,9 +86,16 @@ namespace AudiophileAPI.Controllers
                     });
                 }
 
-                user.PasswordHash = _passwordService.HashPassword(user.PasswordHash);
+                var newUser = new User
+                {
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    PasswordHash = _passwordService.HashPassword(user.Password),
+                    Role = user.Role
+                };
 
-                var createdUser = await _usersRepository.CreateUser(user);
+                var createdUser = await _usersRepository.CreateUser(newUser);
 
                 return CreatedAtAction(nameof(GetUser), new { id = createdUser.UsersId }, createdUser);
             }
