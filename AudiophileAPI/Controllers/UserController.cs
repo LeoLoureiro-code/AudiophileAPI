@@ -1,4 +1,5 @@
-﻿using AudiophileAPI.DataAccess.EF.Models;
+﻿using AudiophileAPI.DataAccess.EF.Interfaces;
+using AudiophileAPI.DataAccess.EF.Models;
 using AudiophileAPI.DataAccess.EF.Repositories;
 using AudiophileAPI.DataAccess.EF.Services;
 using AudiophileAPI.DTO;
@@ -16,10 +17,10 @@ namespace AudiophileAPI.Controllers
         //Create a DTO for users
 
 
-        private readonly UsersRepository _usersRepository;
-        private readonly PasswordService _passwordService;
+        private readonly IUsersRepository _usersRepository;
+        private readonly IPasswordService _passwordService;
 
-        public UserController(UsersRepository usersRepository, PasswordService passwordService)
+        public UserController(IUsersRepository usersRepository, IPasswordService passwordService)
         {
             _usersRepository = usersRepository;
             _passwordService = passwordService;
@@ -35,6 +36,10 @@ namespace AudiophileAPI.Controllers
             try
             {
                 var user = await _usersRepository.GetAllUsers();
+                if (user == null || !user.Any())
+                {
+                    return NotFound("No users found");
+                }
                 return Ok(user);
             }
             catch (Exception ex) {
@@ -85,17 +90,7 @@ namespace AudiophileAPI.Controllers
                         Message = "Email and password are required."
                     });
                 }
-
-                var newUser = new User
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    PasswordHash = _passwordService.HashPassword(user.Password),
-                    Role = user.Role
-                };
-
-                var createdUser = await _usersRepository.CreateUser(newUser);
+                var createdUser = await _usersRepository.CreateUser(user);
 
                 return CreatedAtAction(nameof(GetUser), new { id = createdUser.UsersId }, createdUser);
             }
