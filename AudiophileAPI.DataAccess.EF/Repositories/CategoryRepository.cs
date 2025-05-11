@@ -1,4 +1,5 @@
 ﻿using AudiophileAPI.DataAccess.EF.Context;
+using AudiophileAPI.DataAccess.EF.Interfaces;
 using AudiophileAPI.DataAccess.EF.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,13 +10,18 @@ using System.Threading.Tasks;
 
 namespace AudiophileAPI.DataAccess.EF.Repositories
 {
-    public class CategoryRepository
+    public class CategoryRepository: ICategoryRepository
     {
         private readonly AudiophileAPIDbContext _context;
 
         public CategoryRepository(AudiophileAPIDbContext context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<Category>> GetAllCategories()
+        {
+            return await _context.Categories.ToListAsync();
         }
 
         public async Task<Category> GetCategoryById(int id)
@@ -27,11 +33,6 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
                 throw new Exception("Category not found");
             }
             return category;
-        }
-
-        public async Task<IEnumerable<Category>> GetAllCategories()
-        {
-            return await _context.Categories.ToListAsync();
         }
 
         public async Task<Category> AddCategory(Category category)

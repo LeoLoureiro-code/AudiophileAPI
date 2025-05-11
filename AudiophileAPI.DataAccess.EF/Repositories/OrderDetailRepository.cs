@@ -1,4 +1,5 @@
 ﻿using AudiophileAPI.DataAccess.EF.Context;
+using AudiophileAPI.DataAccess.EF.Interfaces;
 using AudiophileAPI.DataAccess.EF.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AudiophileAPI.DataAccess.EF.Repositories
 {
-    public class OrderDetailRepository
+    public class OrderDetailRepository: IOrderDetailRepository
     {
         private readonly AudiophileAPIDbContext _context;
 
