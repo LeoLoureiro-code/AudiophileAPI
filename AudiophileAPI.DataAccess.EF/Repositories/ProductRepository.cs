@@ -18,6 +18,12 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
             _context = context;
         }
 
+        public async Task<IEnumerable<Product>> GetAllProducts()
+        {
+            return await _context.Products.ToListAsync();
+
+        }
+
         public async Task<Product> GetProductById(int id)
         {
             var user = await _context.Products.FindAsync(id);
@@ -28,12 +34,6 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
             }
 
             return user;
-        }
-
-        public async Task<IEnumerable<Product>> GetAllProducts()
-        {
-            return await _context.Products.ToListAsync();
-
         }
 
         public async Task<Product> AddProduct(Product product)

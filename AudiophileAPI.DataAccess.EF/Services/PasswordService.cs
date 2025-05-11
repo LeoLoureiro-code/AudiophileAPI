@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using AudiophileAPI.DataAccess.EF.Interfaces;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AudiophileAPI.DataAccess.EF.Services
 {
-    public class PasswordService
+    public class PasswordService : IPasswordService
     {
         private readonly PasswordHasher<string> _hasher = new PasswordHasher<string>();
 
