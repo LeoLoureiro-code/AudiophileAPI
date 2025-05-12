@@ -12,9 +12,6 @@ namespace AudiophileAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        
-        
-        //Create a DTO for users
 
 
         private readonly IUsersRepository _usersRepository;
@@ -83,7 +80,7 @@ namespace AudiophileAPI.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(user.Email) || string.IsNullOrWhiteSpace(user.Password))
+                if (!ModelState.IsValid)
                 {
                     return BadRequest(new
                     {
