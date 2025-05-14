@@ -91,22 +91,16 @@ namespace AudiophileAPI.Controllers
         }
 
         [HttpPut("update-category/{id}")]
-        public async Task<ActionResult> UpdateCategory(int id, [FromBody] Category category)
+        public async Task<ActionResult> UpdateCategory(int id, [FromBody] CategoryDTO categoryDto)
         {
             try
             {
-                
-                if (category.CategoryId != 0 && category.CategoryId != id)
+                if (string.IsNullOrWhiteSpace(categoryDto.CategoryName))
                 {
-                    return BadRequest("Category ID in the body does not match URL.");
+                    return BadRequest("Category name cannot be empty.");
                 }
 
-                if (string.IsNullOrWhiteSpace(category.CategoryName))
-                {
-                    return BadRequest("Name cannot be empty.");
-                }
-
-                var updated = await _categoryRepository.UpdateCategory(id, category.CategoryName);
+                var updated = await _categoryRepository.UpdateCategory(id, categoryDto.CategoryName);
 
                 if (updated == null)
                 {

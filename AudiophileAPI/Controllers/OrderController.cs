@@ -91,20 +91,21 @@ namespace AudiophileAPI.Controllers
         }
 
         [HttpPut("update-user/{id}")]
-        public async Task<ActionResult> UpdateOrderStatus(int id, [FromBody] Order order)
+
+        public async Task<ActionResult> UpdateOrderStatus(int id, [FromBody] OrderDTO orderDto)
         {
             try
             {
-                if (order.OrderId != 0 && order.OrderId != id)
+                if (string.IsNullOrWhiteSpace(orderDto.Status))
                 {
-                    return BadRequest("Order ID in the body does not match URL.");
+                    return BadRequest("Order status cannot be null or empty.");
                 }
 
-                var updated = await _orderRepository.ChangeOrderStatus(id, order.Status);
+                var updated = await _orderRepository.ChangeOrderStatus(id, orderDto.Status);
 
                 if (updated == null)
                 {
-                    return NotFound($"User with ID {id} not found.");
+                    return NotFound($"Order with ID {id} not found.");
                 }
 
                 return NoContent();
