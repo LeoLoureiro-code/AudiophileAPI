@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AudiophileAPI.DataAccess.EF.Repositories
 {
-    public class OrderRepository: IOrderRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly AudiophileAPIDbContext _context;
 
@@ -46,7 +46,7 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
         {
             Order existingOrder = await _context.Orders.FindAsync(id);
 
-            if(existingOrder == null)
+            if (existingOrder == null)
             {
                 throw new Exception("Order not found");
             }
@@ -68,3 +68,4 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
             await _context.SaveChangesAsync();
         }
     }
+}

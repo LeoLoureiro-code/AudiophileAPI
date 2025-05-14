@@ -1,6 +1,7 @@
 ﻿using AudiophileAPI.DataAccess.EF.Context;
 using AudiophileAPI.DataAccess.EF.Interfaces;
 using AudiophileAPI.DataAccess.EF.Models;
+using AudiophileAPI.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,7 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
 
         public async Task<Category> UpdateCategory(int categoryId, string categoryName)
         {
-            Category existingCategory = await _context.Categories.FindAsync(categoryId);
+            var existingCategory = await _context.Categories.FindAsync(categoryId);
 
             if (existingCategory == null)
             {

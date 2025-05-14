@@ -45,7 +45,7 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
         }
 
         public async Task<Product> UpdateProduct(int productId, string productName, string productDescription, string productFeatures, decimal productPrice,
-            int productStock, int categoryId)
+            int productStock, int categoryId, string imageUrl)
         {
             var existingProduct = await _context.Products.FindAsync(productId);
 
@@ -60,6 +60,7 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
             existingProduct.Price = productPrice;
             existingProduct.Stock = productStock;
             existingProduct.CategoryId = categoryId;
+            existingProduct.ImageUrl = imageUrl;
 
             await _context.SaveChangesAsync();
 
