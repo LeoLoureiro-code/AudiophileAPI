@@ -1,4 +1,5 @@
-﻿using AudiophileAPI.DataAccess.EF.Models;
+﻿using AudiophileAPI.DataAccess.EF.Interfaces;
+using AudiophileAPI.DataAccess.EF.Models;
 using AudiophileAPI.DataAccess.EF.Repositories;
 using AudiophileAPI.DTO;
 using Microsoft.AspNet.Identity;
@@ -13,9 +14,9 @@ namespace AudiophileAPI.Controllers
     public class ProductController : ControllerBase
     {
 
-        private readonly ProductRepository _productRepository;
+        private readonly IProductRepository _productRepository;
 
-        public ProductController(ProductRepository productRepository)
+        public ProductController(IProductRepository productRepository)
         {
             _productRepository = productRepository;
         }
