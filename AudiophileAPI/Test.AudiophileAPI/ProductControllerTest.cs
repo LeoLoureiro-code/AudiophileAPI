@@ -2,6 +2,7 @@
 using AudiophileAPI.DataAccess.EF.Interfaces;
 using AudiophileAPI.DataAccess.EF.Models;
 using AudiophileAPI.DataAccess.EF.Repositories;
+using AudiophileAPI.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -71,6 +72,86 @@ namespace AudiophileAPI.Test.AudiophileAPI
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result.Result);
             Assert.Equal(404, notFoundResult.StatusCode);
 
+        }
+
+        [Fact]
+        public async Task GetProduct_ReturnProduct_WhenUserExists()
+        {
+            //Arrange
+            int testProductId = 1;
+            var testProduct = new Product
+            {
+                Description = "earphones",
+                Features = "features",
+                Price = 99.99M,
+                Stock = 10,
+                CategoryId = 2,
+                ImageUrl = "Image.png"
+            };
+
+            _mockRepo.Setup(repo => repo.GetProductById(testProductId)).ReturnsAsync(testProduct);
+
+            //Act
+            var result = await _productController.GetProduct(testProductId);
+
+            //Assert
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
+            var returnProduct = Assert.IsType<Product>(okResult.Value);
+            Assert.Equal(testProductId, returnProduct.ProductId);
+        }
+
+        [Fact]
+        public async Task GetProduct_ReturnsNotFound_WHenProductDoesNotExists()
+        {
+            // Arrange
+            int testProductId = 999;
+            _mockRepo.Setup(repo => repo.GetProductById(testProductId))
+                     .ThrowsAsync(new Exception("Product not found"));
+
+            // Act
+            var result = await _productController.GetProduct(testProductId);
+
+            // Assert
+            var problemResult = Assert.IsType<ObjectResult>(result.Result);
+            Assert.Equal(500, problemResult.StatusCode);
+        }
+
+        [Fact]
+        public async Task CreateProduct_ReturnsCreatedAt_WhenValidProduct()
+        {
+            // Arrange
+            var productInput = new Product
+            {
+                Name = "name",
+                Description = "earphones",
+                Features = "features",
+                Price = 99.99M,
+                Stock = 10,
+                CategoryId = 2,
+                ImageUrl = "Image.png"
+            };
+
+            var createdProduct = new Product
+            {
+                ProductId = 1,
+                Name = "name",
+                Description = "earphones",
+                Features = "features",
+                Price = 99.99M,
+                Stock = 10,
+                CategoryId = 2,
+                ImageUrl = "Image.png"
+            };
+
+            _mockRepo.Setup(r => r.AddProduct(productInput)).ReturnsAsync(createdProduct);
+
+            // Act
+            var result = await _productController.CreateProduct(productInput);
+
+            // Assert
+            var createdResult = Assert.IsType<CreatedAtActionResult>(result.Result);
+            var returnProduct = Assert.IsType<Product>(createdResult.Value);
+            Assert.Equal(1, returnProduct.ProductId);
         }
 
     }
