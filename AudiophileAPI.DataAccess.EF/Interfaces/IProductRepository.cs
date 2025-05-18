@@ -13,10 +13,10 @@ namespace AudiophileAPI.DataAccess.EF.Interfaces
 
         Task<Product> GetProductById(int id);
 
-        Task<Product> AddProduct(Product product);
+        Task<Product> AddProduct(DTO.ProductDTO product);
 
         Task<Product> UpdateProduct(int productId, string productName, string productDescription, string productFeatures, decimal productPrice,
-            int productStock, int categoryId);
+            int productStock, int categoryId, string imageURL);
 
         Task DeleteProduct(int id);
     }

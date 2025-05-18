@@ -1,6 +1,7 @@
 ﻿using AudiophileAPI.DataAccess.EF.Context;
 using AudiophileAPI.DataAccess.EF.Interfaces;
 using AudiophileAPI.DataAccess.EF.Models;
+using AudiophileAPI.DTO;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -37,10 +38,22 @@ namespace AudiophileAPI.DataAccess.EF.Repositories
             return user;
         }
 
-        public async Task<Product> AddProduct(Product product)
+        public async Task<Product> AddProduct(ProductDTO productDto)
         {
+            var product = new Product
+            {
+                Name = productDto.Name,
+                Description = productDto.Description,
+                Features = productDto.Features,
+                Price = productDto.Price,
+                Stock = productDto.Stock,
+                CategoryId = productDto.CategoryId,
+                ImageUrl = productDto.ImageURL
+            };
+
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
+
             return product;
         }
 
