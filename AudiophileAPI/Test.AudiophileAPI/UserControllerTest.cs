@@ -137,11 +137,14 @@ namespace AudiophileAPI.Test.AudiophileAPI
             Assert.Equal(1, returnUser.UsersId);
         }
 
-        //Fix This
+        
         [Theory]
         [InlineData("FirstName", "LastName", null, "Password123", "admin")]
         [InlineData("FirstName", "LastName", "test@example.com", null, "admin")]
         [InlineData("FirstName", "LastName", "", "Password123", "admin")]
+        [InlineData("", "LastName", null, "Password123", "admin")]
+        [InlineData("FirstName", "", "test@example.com", null, "admin")]
+        [InlineData("FirstName", "LastName", "", "Password123", "")]
         public async Task CreateUser_ReturnsBadRequest_WhenMissingFields(
         string firstName, string lastName, string email, string password, string role)
         {
