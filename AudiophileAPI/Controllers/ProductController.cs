@@ -73,7 +73,7 @@ namespace AudiophileAPI.Controllers
 
         [HttpPost("create-product")]
 
-        public async Task<ActionResult<Product>> CreateProduct(Product product)
+        public async Task<ActionResult<Product>> CreateProduct(ProductDTO product)
         {
             try
             {
@@ -99,29 +99,29 @@ namespace AudiophileAPI.Controllers
         }
 
         [HttpPut("update-product/{id}")]
-        public async Task<ActionResult<Product>> UpdateProduct(int id, [FromBody] ProductDTO productDto)
+        public async Task<ActionResult<Product>> UpdateProduct(int id, [FromBody] ProductDTO product)
         {
             try
             {
                 
-                if (string.IsNullOrWhiteSpace(productDto.Name) ||
-                    string.IsNullOrWhiteSpace(productDto.Description) ||
-                    string.IsNullOrWhiteSpace(productDto.Features) ||
-                    productDto.Price <= 0 ||
-                    productDto.Stock < 0)
+                if (string.IsNullOrWhiteSpace(product.Name) ||
+                    string.IsNullOrWhiteSpace(product.Description) ||
+                    string.IsNullOrWhiteSpace(product.Features) ||
+                    product.Price <= 0 ||
+                    product.Stock < 0)
                 {
                     return BadRequest("Invalid product data. Please check all fields.");
                 }
 
                 var updated = await _productRepository.UpdateProduct(
                     id,
-                    productDto.Name,
-                    productDto.Description,
-                    productDto.Features,
-                    productDto.Price,
-                    productDto.Stock,
-                    productDto.CategoryId,
-                    productDto.ImageURL
+                    product.Name,
+                    product.Description,
+                    product.Features,
+                    product.Price,
+                    product.Stock,
+                    product.CategoryId,
+                    product.ImageURL
                 );
 
                 if (updated == null)

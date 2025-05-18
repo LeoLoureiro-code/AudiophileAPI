@@ -49,7 +49,7 @@ namespace AudiophileAPI.Controllers
 
         //GET:api/Users/5
         [HttpGet("find-by-id/{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<UsersDTO>> GetUser(int id)
         {
             try
             {
